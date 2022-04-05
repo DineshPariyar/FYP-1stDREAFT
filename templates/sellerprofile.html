@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+
+{%block title%} My Profile {%endblock%}
+
+{%block content%}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{% url 'thriftNEP:sellerproductcreate' %}">Add New Product</a>
+            <h3>Detail informations</h3>
+            <hr>
+            <p><span class="font-weight-bold">Name:</span>{{seller.full_name}}</p>
+            <p><span class="font-weight-bold">Username:</span>{{seller.user.username}}</p>
+            <p><span class="font-weight-bold">Email:</span>{{seller.user.email}}</p>
+            <p><span class="font-weight-bold">Address:</span>{{seller.address}}</p>
+            <p><span class="font-weight-bold">joined on:</span>{{seller.joined_on}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Product LIst</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>SN</td>
+                        <td>Product</td>
+                        <td>Price</td>
+                        <td>Status</td>
+                        <td>Creatd At</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in product_list %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{product.title}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.status}}</td>
+                        <td>{{product.uploaded_on|date}}</td>
+                        <td><a href="{% url 'thriftNEP:sellerproductsold' product.id %}">Make it Sold</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+{%endblock%}

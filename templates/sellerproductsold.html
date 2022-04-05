@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <h3>Are you sure to make this item sold?</h3>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+
+            <button class="btn btn-danger">Confirm</button>
+            <a class="btn btn-primary" href="{% url 'thriftNEP:sellerprofile' %}">Cancel</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
