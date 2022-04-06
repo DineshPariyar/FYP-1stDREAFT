@@ -1,5 +1,7 @@
 from distutils.command.upload import upload
+import email
 from tkinter import CASCADE
+from django import forms
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -20,6 +22,7 @@ class Seller(models.Model):
     address = models.CharField(max_length=200, null=True, blank=True)
     mobile = models.CharField(max_length=200, null=True, blank=True)
     joined_on = models.DateTimeField(auto_now_add=True)
+    email=models.CharField(widget=forms.EmailInput())
 
     def __str__(self):
         return self.full_name
