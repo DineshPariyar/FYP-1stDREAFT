@@ -1,8 +1,10 @@
 from genericpath import exists
-from itertools import product
+from itertools import chain, product
 from msilib.schema import ListView
 from multiprocessing import context
+from turtle import title
 from urllib import request
+from django.http import HttpResponseRedirect
 from django.views.generic import  View, TemplateView,CreateView, FormView
 from django.contrib.auth import authenticate, login, logout
 from .forms import *
@@ -151,8 +153,8 @@ class SearchView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         kw = self.request.GET.get("keyword")
-        results = Product.objects.filter(Q(title__icontains=kw)  | Q(description__icontains=kw) | Q(return_policy__icontains=kw) )
-        context["results"]=results
+        results = Product.objects.filter(Q(title__icontains=kw)  | Q(description__icontains=kw) | Q(return_policy__icontains=kw))
+        context["results"]= results
         print(results)
         return context
 
@@ -192,3 +194,9 @@ class AdminHomeView(TemplateView):
 
 
         return super().dispatch(request, *args, **kwargs)
+
+
+def delete_product(request,id):
+    obj = Product.objects.get(id=id)
+    obj.delete()
+    return HttpResponseRedirect('/profile/')
