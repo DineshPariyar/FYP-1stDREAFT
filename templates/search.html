@@ -10,10 +10,10 @@
             <hr>
             {% for result in results%}
             <div class="row p-3">
-                <div class="col-md-4">
+                <div class="col-md-4"><hr>
                     <img src="{{result.image.url}}" class="img-thumbnail" style="height: 250px; width:220px; object-fit:cover">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8"><hr>
                     <h4><a href="{% url 'thriftNEP:productdetail' result.slug %}">{{result.title}}<a></h4>
                     <p>{{result.description|truncatewords:50}}</p>
                     <p>Return Policy:{{result.return_policy}}</p>
@@ -21,7 +21,7 @@
                 <p class="text-danger">Product Already Sold</p>
                 {% endif %}
                     <a href="{% url 'thriftNEP:productdetail' result.slug%}" class="btn btn-info">View</a>
-                </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>

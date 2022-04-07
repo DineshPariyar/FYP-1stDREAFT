@@ -6,7 +6,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <a href="{% url 'thriftNEP:sellerproductcreate' %}">Add New Product</a>
+            <a href="{% url 'thriftNEP:sellerproductcreate' %}" class="btn btn-warning" style="">Add New Product</a>
+            <br>
             <h3>Detail informations</h3>
             <hr>
             <p><span class="font-weight-bold">Name:</span>{{seller.full_name}}</p>
@@ -32,13 +33,18 @@
                 </thead>
                 <tbody>
                     {% for product in product_list %}
+                    
                     <tr>
                         <td>{{forloop.counter}}</td>
                         <td>{{product.title}}</td>
                         <td>{{product.price}}</td>
                         <td>{{product.status}}</td>
                         <td>{{product.uploaded_on|date}}</td>
-                        <td><a href="{% url 'thriftNEP:sellerproductsold' product.id %}">Make it Sold</a></td>
+                        {% if product.status != "Sold" %}
+                        <td><a href="{% url 'thriftNEP:sellerproductsold' product.id %}" class="btn btn-success">Sold...</a></td>
+                        {% else %}
+                        <td><a href="{% url 'thriftNEP:delete_product' product.id %}" class="btn btn-danger">Delete</a></td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>
