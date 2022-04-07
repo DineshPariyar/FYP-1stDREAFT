@@ -22,7 +22,6 @@ class Seller(models.Model):
     address = models.CharField(max_length=200, null=True, blank=True)
     mobile = models.CharField(max_length=200, null=True, blank=True)
     joined_on = models.DateTimeField(auto_now_add=True)
-    email=models.CharField(widget=forms.EmailInput())
 
     def __str__(self):
         return self.full_name

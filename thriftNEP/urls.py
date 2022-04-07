@@ -19,11 +19,7 @@ urlpatterns=[
     path("product-create/", SellerProductCreateView.as_view(), name="sellerproductcreate"),
     path("product-<pro_id>-sold/", SellerProductSoldView.as_view(), name="sellerproductsold"),
     path("search/", SearchView.as_view(), name="search"),
-
-
-
-    path("admin-login/",AdminLoginView.as_view(), name="adminlogin"),
-    path("admin-home",AdminHomeView.as_view(),name="adminhome"),
+    path('delete_product/<int:id>/',delete_product,name="delete_product"),
 
 
     # path("seller-product/list/",SellerProductListView.as_view(), name="sellerproductlistview "),

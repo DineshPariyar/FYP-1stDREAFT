@@ -9,7 +9,7 @@ class SellerRegistrationForm(forms.ModelForm):
     email = forms.CharField(widget=forms.EmailInput())
     class Meta:
         model=Seller
-        fields=["username","password","email","full_name", "address"]
+        fields=["username","password","email","full_name", "address","mobile"]
 
     def clean_username(self):
         uname = self.cleaned_data.get("username")
@@ -23,6 +23,48 @@ class SellerLoginForm(forms.Form):
 
 
 class SellerProductCreateForm(forms.ModelForm):
+    more_images= forms.FileField(required=False, widget=forms.FileInput(attrs={
+        "class": "form-control",
+        "multiple":True
+    }))
     class Meta:
         model = Product
         fields = ["title",  "slug", "category", "image", "price", "description", "return_policy"]
+
+        widgets ={
+            "title": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Enterthe product Title"
+            }),
+
+            "slug": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Enterthe unique slug"
+            }),
+
+
+            "category": forms.Select(attrs={
+                "class": "form-control",
+            }),
+
+
+            "image": forms.ClearableFileInput(attrs={
+                "class": "form-control",
+            }),
+
+            "price": forms.NumberInput(attrs={
+                "class": "form-control",
+                "placeholder": "Enterthe product price"
+            }),
+
+            "description": forms.Textarea(attrs={
+                "class": "form-control",
+                "placeholder": "description of  product",
+                "rows":5
+            }),
+
+            "return_policy": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Enterthe product Title"
+            }),
+        }

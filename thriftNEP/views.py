@@ -1,3 +1,4 @@
+from email.mime import image
 from genericpath import exists
 from itertools import chain, product
 from msilib.schema import ListView
@@ -123,6 +124,12 @@ class SellerProductCreateView(SellerMixin, CreateView):
         form.instance.seller_number = self.seller.mobile or "9898989898"
         form.instance.seller_address = self.seller.address
         form.instance.status = "On Sale"
+
+        p=form.save()
+        more_images=self.request.FILES.getlist("more_images")
+        for i in more_images:
+            ProductImages.objects.create(product=p, image=i)
+
         return super().form_valid(form)
 
 
@@ -138,6 +145,11 @@ class SellerProductSoldView(SellerMixin, TemplateView):
             print(e)
             return redirect("thriftNEP:sellerprofile")
         return redirect("thriftNEP:sellerprofile")
+
+def delete_product(request,id):
+    obj = Product.objects.get(id=id)
+    obj.delete()
+    return HttpResponseRedirect('/profile/')
 
 
 # class SellerProductListView(SellerRequiredMixin, ListView):
@@ -159,44 +171,3 @@ class SearchView(TemplateView):
         return context
 
 
-
-
-
-
-
-#admin login
-class AdminLoginView(FormView):
-    template_name= "admin/adminlogin.html"
-    form_class=SellerLoginForm
-    success_url=reverse_lazy("thriftNEP:adminhome")
-
-    def form_valid(self, form):
-        uname=form.cleaned_data.get("username")
-        pword =form.cleaned_data["password"]
-        usr=authenticate(username=uname, password=pword)
-        if usr is not None and Admin.objects.filter(user=usr).exists():
-            login(self.request, usr)
-        else:
-            return render(self.request,self.template_name, {"form": self.form_class, "error":"Invalid Username and Password"})
-
-        return super().form_valid(form)
-
-
-
-class AdminHomeView(TemplateView):
-    template_name="admin/adminhome.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and Admin.objects.filter(user= request.user).exists():
-            pass
-        else:
-            return redirect("/admin-login/")
-
-
-        return super().dispatch(request, *args, **kwargs)
-
-
-def delete_product(request,id):
-    obj = Product.objects.get(id=id)
-    obj.delete()
-    return HttpResponseRedirect('/profile/')
