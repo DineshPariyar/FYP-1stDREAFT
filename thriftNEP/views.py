@@ -1,20 +1,25 @@
-from email.mime import image
-from genericpath import exists
-from itertools import chain, product
-from msilib.schema import ListView
-from multiprocessing import context
-from turtle import title
-from urllib import request
-from django.http import HttpResponseRedirect
 from django.views.generic import  View, TemplateView,CreateView, FormView
 from django.contrib.auth import authenticate, login, logout
-from .forms import *
-from thriftNEP.models import Product   #its imported bcz of class based function 
 from django.shortcuts import redirect, render
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
+from .utils import password_reset_token
+from django.urls import reverse, reverse_lazy
+from django.http import JsonResponse
+from django.core.mail import send_mail
+from itertools import chain, product
+from thriftNEP.models import Product   #its imported bcz of class based function 
+from multiprocessing import context
+from msilib.schema import ListView
+from django.conf import settings
 from django.db.models import Q
-from django.urls import reverse_lazy
+from genericpath import exists
+from email.mime import image
+from urllib import request
+from turtle import title
+from cgitb import text
 from .models import *
+from .forms import *
 
 # Create your views here.
 
@@ -50,20 +55,36 @@ class ProductDetailView(TemplateView):
         return context
 
 
-class SellerRegistrationView(CreateView):
-    template_name="registration.html"
-    form_class = SellerRegistrationForm
-    success_url=reverse_lazy("thriftNEP:home")
+# class SellerRegistrationView(CreateView):
+#     template_name="registration11.html"
+#     form_class = SellerRegistrationForm
+#     success_url=reverse_lazy("thriftNEP:home")
 
-    def form_valid(self, form):
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        email = form.cleaned_data.get("email")
-        user=User.objects.create_user(username, email, password)
-        form.instance.user=user
-        login(self.request, user)
-        return super().form_valid(form)
+#     def form_valid(self, form):
+#         username = form.cleaned_data.get("username")
+#         password = form.cleaned_data.get("password")
+#         email = form.cleaned_data.get("email")
+#         user=User.objects.create_user(username, email, password)
+#         form.instance.user=user
+#         login(self.request, user)
+#         return super().form_valid(form)
 
+
+def SellerRegistrationView(request): 
+    if request.method=="POST":
+        print (request.POST)
+        user=request.POST["username"]
+        email=request.POST["email"]
+        password=request.POST["password"]
+        full_name=request.POST["full_name"]
+        address=request.POST["address"]
+        number=request.POST["number"]
+        seller=Seller(user=user,email=email,password=password,full_name=full_name,address=address,number=number )
+        seller.save()
+    elif request.method=="GET":
+        return render(request,"testRegister.html")
+
+    return HttpResponse()
 
 
 class SellerLoginView(FormView):
@@ -83,6 +104,62 @@ class SellerLoginView(FormView):
         return super().form_valid(form)
 
 
+class PasswordForgetView(FormView):
+    template_name="forgotpw.html"
+    form_class = PasswordForgetForm
+    success_url="/forget-password/?m=s"
+
+    def form_valid(self, form): 
+        #get email from user 
+        email=form.cleaned_data.get("email")
+        # get current host ip/domain
+        url = self.request.META['HTTP_HOST']
+        #get seller and then user
+        seller=Seller.objects.get(user__email=email)
+        user=seller.user
+        #send mail to the user with email.
+        text_content= 'Please Click the link to reset your password. '
+        html_content = url + "/password-reset/" + email + \
+            "/" + password_reset_token.make_token(user) + "/"
+        send_mail(
+            'Password Reset Link from thriftNEP',
+            text_content + html_content,
+            settings.EMAIL_HOST_USER,
+            [email],
+            fail_silently=False,
+        )
+        return super().form_valid(form)
+####################################################################################
+
+class PasswordResetView(FormView):
+    template_name="passwordreset.html"
+    form_class = PasswordResetForm
+    success_url="/login/"
+
+
+    def dispatch(self, request, *args, **kwargs):
+        email = self.kwargs.get("email")
+        user = User.objects.get(email=email)
+        token = self.kwargs.get("token")
+        if user is not None and password_reset_token.check_token(user, token):
+            pass
+        else:
+            return redirect(reverse("thriftNEP:forgotpw")+ "?m=e")  
+        return super().dispatch(request, *args, **kwargs)
+            
+        
+    def form_valid(self, form):
+        password = form.cleaned_data['new_password']
+        email = self.kwargs.get("email")
+        user = User.objects.get(email=email)
+        user.set_password(password)
+        user.save()
+        return super().form_valid(form)
+
+
+
+##############################################################################
+
 class SellerMixin(object):
     def dispatch(self, request, *args, **kwargs):
         try:
@@ -91,6 +168,7 @@ class SellerMixin(object):
             print(e)
             return redirect("thriftNEP:sellerlogin")
         return super().dispatch(request, *args, **kwargs)
+
 
 
 class SellerLogoutView(SellerMixin, View):

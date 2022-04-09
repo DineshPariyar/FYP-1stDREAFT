@@ -9,10 +9,16 @@ urlpatterns=[
     path("all-products/", AllProductsView.as_view(), name="allproducts"),
     path("product/<slug:slug>", ProductDetailView.as_view(), name="productdetail"),
 
-    path("register/",SellerRegistrationView.as_view(), name="sellerregistration"),
+    # path("register/",SellerRegistrationView.as_view(), name="sellerregistration"),
+    path("register/",SellerRegistrationView, name="sellerregistration"),
+
 
     path("login/",SellerLoginView.as_view(), name="sellerlogin"),
     path("logout/",SellerLogoutView.as_view(), name="sellerlogout"),
+    path("forget-password/",PasswordForgetView.as_view(),name="forgotpw"),
+    path("password-reset/<email>/<token>/", PasswordResetView.as_view(), name="passwordreset"),
+
+
     
 
     path("profile/",SellerProfileView.as_view(), name="sellerprofile"),
