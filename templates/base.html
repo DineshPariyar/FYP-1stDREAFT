@@ -5,7 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{%block title%}{%endblock%}</title>
+    {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   
+
+</head>
+
+
     <style>
         body{margin-top:20px;
             background-color: #eee;
@@ -110,10 +116,9 @@
             }
     </style>
    
-  </head>
 <body>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="{% url 'thriftNEP:home' %}">thriftNEP</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -133,13 +138,20 @@
                   </li>
 
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% comment %}  {% endcomment %}
+                {% if not request.user.seller %}
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                    Become Member
                   </a>
+                  {% else %}
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{request.user.username}}
+                   </a>
+                  {% endif %}
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {%if request.user.seller %}
-                    welcome {{request.user.username}}!
-                    <a class="dropdown-item" href="{%url 'thriftNEP:sellerprofile' %}">My Profile</a>
+                    <a class="dropdown-item" href="{%url 'thriftNEP:sellerprofile' %}">Profile</a>
+
                     <a class="dropdown-item" href="{%url 'thriftNEP:sellerlogout' %}">Logout</a>
              
                     {%else%}
@@ -153,7 +165,7 @@
               </ul>
               <form class="form-inline my-2 my-lg-0 " action="{% url 'thriftNEP:search' %}" method="GET">
                 <input name="keyword" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required >
-                <button class="btn btn-danger my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
               </form>
             </div>
           </nav>
