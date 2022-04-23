@@ -1,183 +1,136 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8">
     <title>{%block title%}{%endblock%}</title>
-    {% load static %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   
+	{% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Bootstrap styles -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet"/>
+    <!-- Customize styles -->
+    <link href="{% static 'style.css' %}" rel="stylesheet"/>
+    <!-- font awesome styles -->
+	<link href="{% static 'font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+		<!--[if IE 7]>
+			<link href="css/font-awesome-ie7.min.css" rel="stylesheet">
+		<![endif]-->
 
-</head>
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 
-
-    <style>
-        body{margin-top:20px;
-            background-color: #eee;
-            }
-            
-            .search-result-categories>li>a {
-                color: #b6b6b6;
-                font-weight: 400
-            }
-            
-            .search-result-categories>li>a:hover {
-                background-color: #ddd;
-                color: #555
-            }
-            
-            .search-result-categories>li>a>.glyphicon {
-                margin-right: 5px
-            }
-            
-            .search-result-categories>li>a>.badge {
-                float: right
-            }
-            
-            .search-results-count {
-                margin-top: 10px
-            }
-            
-            .search-result-item {
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 4px
-            }
-            
-            .search-result-item:after,
-            .search-result-item:before {
-                content: " ";
-                display: table
-            }
-            
-            .search-result-item:after {
-                clear: both
-            }
-            
-            .search-result-item .image-link {
-                display: block;
-                overflow: hidden;
-                border-top-left-radius: 4px;
-                border-bottom-left-radius: 4px
-            }
-            
-            @media (min-width:768px) {
-                .search-result-item .image-link {
-                    display: inline-block;
-                    margin: -20px 0 -20px -20px;
-                    float: left;
-                    width: 200px
-                }
-            }
-            
-            @media (max-width:767px) {
-                .search-result-item .image-link {
-                    max-height: 200px
-                }
-            }
-            
-            .search-result-item .image {
-                max-width: 100%
-            }
-            
-            .search-result-item .info {
-                margin-top: 2px;
-                font-size: 12px;
-                color: #999
-            }
-            
-            .search-result-item .description {
-                font-size: 13px
-            }
-            
-            .search-result-item+.search-result-item {
-                margin-top: 20px
-            }
-            
-            @media (min-width:768px) {
-                .search-result-item-body {
-                    margin-left: 200px
-                }
-            }
-            
-            .search-result-item-heading {
-                font-weight: 400
-            }
-            
-            .search-result-item-heading>a {
-                color: #555
-            }
-            
-            @media (min-width:768px) {
-                .search-result-item-heading {
-                    margin: 0
-                }
-            }
-    </style>
-   
+	<!-- Favicons -->
+    <link rel="shortcut icon" href="{% static 'ico/favicon.ico' %}">
+  </head>
 <body>
+<!-- 
+	Upper Header Section 
+-->
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="topNav">
+		<div class="container">
+			<div class="alignR">
+				<a href="{% url 'thriftNEP:home' %}"> <span class="icon-home"></span> Home</a> 
+				<a href="{%url 'thriftNEP:sellerprofile' %}"><span class="icon-user"></span> My Profile</a> 
+				<a href="{%url 'thriftNEP:sellerregistration' %}"><span class="icon-edit"></span> Register </a> 
+				<a href="{% url 'thriftNEP:help'%}"><span class="icon-envelope"></span> Help</a>
+				
+			</div>
+		</div>
+	</div>
+</div>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'thriftNEP:home' %}">thriftNEP</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'thriftNEP:home' %}">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'thriftNEP:allproducts'%}">Category</a>
-                </li>
+<!--
+Lower Header Section 
+-->
+<div class="container">
+<div id="gototop"> </div>
+<header id="header">
+<div class="row">
+	<div class="span4">
+	<h1>
+	<a class="logo" href="{% url 'thriftNEP:home' %}">
+		<img src="{% static 'img/logo.png' %}" alt="bootstrap sexy shop">
+	</a>
+	</h1>
+	</div>
+	<div class="span4">
+	<div class="offerNoteWrapper">
+	<h1 class="dotmark">
+	Enjoy full shoping with thriftNEP!!!!!!!!!
+	</h1>
+	</div>
+	</div>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'thriftNEP:help' %}">Help</a>
-                  </li>
+</div>
+</header>
 
-                <li class="nav-item dropdown">
-                {% comment %}  {% endcomment %}
-                {% if not request.user.seller %}
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   Become Member
-                  </a>
-                  {% else %}
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{request.user.username}}
-                   </a>
-                  {% endif %}
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {%if request.user.seller %}
-                    <a class="dropdown-item" href="{%url 'thriftNEP:sellerprofile' %}">Profile</a>
+<!--
+Navigation Bar Section 
+-->
+<div class="navbar">
+	  <div class="navbar-inner">
+		<div class="container">
+		  <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </a>
+		  <div class="nav-collapse">
+			<ul class="nav">
+			  <li class=""><a href="{% url 'thriftNEP:home' %}">Home	</a></li>
+			  <li class=""><a href="{% url 'thriftNEP:allproducts'%}">Category</a></li>
+			  <li class=""><a href="{% url 'thriftNEP:help'%}">Help</a></li>
+			</ul>
 
-                    <a class="dropdown-item" href="{%url 'thriftNEP:sellerlogout' %}">Logout</a>
-             
-                    {%else%}
-                    <a  class="dropdown-item" href="{%url 'thriftNEP:sellerregistration' %}">Register</a>
-                    <a  class="dropdown-item" href="{%url 'thriftNEP:sellerlogin' %}">Login</a>
-             
-                     {%endif%}
-                  </div>
-                </li>
 
-              </ul>
-              <form class="form-inline my-2 my-lg-0 " action="{% url 'thriftNEP:search' %}" method="GET">
-                <input name="keyword" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required >
-                <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
-            </div>
-          </nav>
-    <hr>
 
-    {% block content %}
+			<form action="{% url 'thriftNEP:search' %}" class="navbar-search pull-right" method="GET">
+			  <input name="keyword" type="text" placeholder="Search" class="search-query span2" required>
+			  <button class="btn btn-info my-2 my-sm-0" type="submit" style="margin: 1px;" >Search</button>
+			</form>
+
+
+			<ul class="nav pull-left">
+				<li class="dropdown">
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Become Member<b class="caret"></b></a>
+					<div class="dropdown-menu">
+					<form class="form-horizontal loginFrm">
+					  <div class="control-group">
+						<input type="text" class="span2" id="inputEmail" placeholder="Email">
+					  </div>
+					  <div class="control-group">
+						<input type="password" class="span2" id="inputPassword" placeholder="Password">
+					  </div>
+					  <div class="control-group">
+						<label class="checkbox">
+						<input type="checkbox"> Remember me
+						</label>
+						<button type="submit" class="shopBtn btn-block">Sign in</button>
+					  </div>
+					</form>
+					</div>
+				</li>
+			</ul>
+
+		  </div>
+		</div>
+	  </div>
+	</div>
+<!-- 
+Body Section 
+-->
+<body>
+	{% block content %}
     {% endblock %}
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="{% static 'js/bootstrap.js' %}"></script>	
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easing-1.3.min.js' %}"></script>
+	<script src="{% static 'js/jquery.scrollTo-1.4.3.1-min.js' %}"></script>
+	<script src="{% static 'js/shop.js' %}"></script>
 </body>
 </html>

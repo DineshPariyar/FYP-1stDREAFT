@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from .utils import password_reset_token
 from django.urls import reverse, reverse_lazy
 from django.http import JsonResponse
+from django.contrib.auth.models import User, auth #new
 from django.core.mail import send_mail
 from itertools import chain, product
 from thriftNEP.models import Product   #its imported bcz of class based function 
@@ -30,7 +31,7 @@ class HomeView(TemplateView):  #here TemplateView is being inheritated and all t
         context = super().get_context_data(**kwargs)
         #what doe this does is whenever we add some context it express in the frontend.
         all_products = Product.objects.all().order_by("-id")
-        paginator = Paginator(all_products, 4)
+        paginator = Paginator(all_products, 9)
         page_number = self.request.GET.get('page')
         product_list=paginator.get_page(page_number)
         context['product_list'] = product_list
@@ -72,19 +73,23 @@ class ProductDetailView(TemplateView):
 
 def SellerRegistrationView(request): 
     if request.method=="POST":
-        print (request.POST)
-        user=request.POST["username"]
+        username = request.POST["user"]
+        print("weeffffffffffffffffff")
+        print(username)
         email=request.POST["email"]
         password=request.POST["password"]
         full_name=request.POST["full_name"]
         address=request.POST["address"]
         number=request.POST["number"]
-        seller=Seller(user=user,email=email,password=password,full_name=full_name,address=address,number=number )
-        seller.save()
-    elif request.method=="GET":
-        return render(request,"testRegister.html")
-
-    return HttpResponse()
+        user=User.objects.create_user(username=username,email=email,password=password)
+        user.first_name = full_name
+        user.save();
+        seller=Seller(user=user,full_name=full_name,address=address,mobile=number)
+        seller.save();
+        print('user created')
+        return redirect('/')
+    else:
+        return render(request,"registerTest.html")
 
 
 class SellerLoginView(FormView):
@@ -96,7 +101,7 @@ class SellerLoginView(FormView):
         uname=form.cleaned_data.get("username")
         pword =form.cleaned_data["password"]
         usr=authenticate(username=uname, password=pword)
-        if usr is not None and Seller.objects.filter(user=usr).exists():
+        if usr is not None and Seller.objects.filter(user=usr).exists() :
             login(self.request, usr)
         else:
             return render(self.request,self.template_name, {"form": self.form_class, "error":"Invalid Username and Password"})
