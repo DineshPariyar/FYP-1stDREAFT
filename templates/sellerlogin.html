@@ -69,7 +69,10 @@
 		<div class="controls">
          <a href="{%url 'thriftNEP:sellerregistration' %}"><p style="font-weight:bold">Dont Have Account? <span style="color:rgb(233, 15, 15)">Register</span></p></a> 
 		 <input type="submit" value="Login" class="exclusive shopBtn">
-		 <p>Forget Password?<a href="{% url 'thriftNEP:forgotpw' %}">Reset now</a></p>
+		 {%if error %}
+                    <li style="color: red;">{{error}}</li>
+        {%endif%}
+		 <p> <li> Forget Password? <a href="{% url 'thriftNEP:forgotpw' %}"> <button style="color: #ffffff; background-color:rgb(213, 86, 86); border-radius:5px;" > Reset now</button></a></li></p>
                
 		</div>
         <br>

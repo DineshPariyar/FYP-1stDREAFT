@@ -95,29 +95,27 @@ Navigation Bar Section
 			  <button class="btn btn-info my-2 my-sm-0" type="submit" style="margin: 1px;" >Search</button>
 			</form>
 
-
 			<ul class="nav pull-left">
 				<li class="dropdown">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Become Member<b class="caret"></b></a>
-					<div class="dropdown-menu">
-					<form class="form-horizontal loginFrm">
-					  <div class="control-group">
-						<input type="text" class="span2" id="inputEmail" placeholder="Email">
-					  </div>
-					  <div class="control-group">
-						<input type="password" class="span2" id="inputPassword" placeholder="Password">
-					  </div>
-					  <div class="control-group">
-						<label class="checkbox">
-						<input type="checkbox"> Remember me
-						</label>
-						<button type="submit" class="shopBtn btn-block">Sign in</button>
-					  </div>
-					</form>
+					{% if not request.user.seller %}
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Become Member <b class="caret"></b></a>
+					{%else%}
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> {{request.user.username}} <b class="caret"></b></a>
+					{%endif%}
+					<div class="dropdown-menu" style="width: 10px !important;">
+						{%if request.user.seller %}
+						<a href="{%url 'thriftNEP:sellerprofile' %}" class="btn" style="padding:7px; width:130px; margin-left:6px;">Profile</a><br>
+						<a href="{%url 'thriftNEP:sellerlogout' %}" class="btn" style="padding:7px; width:130px; margin-left:5px;">Logout</a>
+						
+						{%else%}
+						<a href="{%url 'thriftNEP:sellerlogin' %}" class="btn" style="padding:7px; width:130px; margin-left:6px;">Sign UP</a><br>
+						
+						<a href="{%url 'thriftNEP:sellerregistration' %}" class="btn" style="padding:7px; width:130px; margin-left:5px;">Register</a>
+						{%endif%}
+
 					</div>
 				</li>
-			</ul>
-
+				</ul>
 		  </div>
 		</div>
 	  </div>

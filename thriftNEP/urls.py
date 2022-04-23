@@ -18,7 +18,7 @@ urlpatterns=[
     path("forget-password/",PasswordForgetView.as_view(),name="forgotpw"),
     path("password-reset/<email>/<token>/", PasswordResetView.as_view(), name="passwordreset"),
 
-
+    path('filter/<str:query>',filter_page,name='filter'),
     
 
     path("profile/",SellerProfileView.as_view(), name="sellerprofile"),

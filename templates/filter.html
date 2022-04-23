@@ -9,7 +9,7 @@
     <div class="well well-small">
       <p style="text-align: center; font-weight:bold;">All Category</p>
         <ul class="nav nav-list">
-        {% for cat in category %}
+         {% for cat in category %}
         
          <li><a href="{% url 'thriftNEP:filter' cat.title  %}"><span class="icon-chevron-right"></span>{{cat.title}}</a></li>
         {% endfor %}
@@ -34,7 +34,7 @@
     New Products
     -->
         <div class="well well-small">
-        <h3>Our Products </h3>
+        <h3>{{Name}} </h3>
             <div class="row">
               <ul class="thumbnails" style="margin-left: 12px !important;">
                 {%for p in product_list%}

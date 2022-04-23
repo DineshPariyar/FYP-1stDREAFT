@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.views.generic import  View, TemplateView,CreateView, FormView
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
@@ -35,7 +36,13 @@ class HomeView(TemplateView):  #here TemplateView is being inheritated and all t
         page_number = self.request.GET.get('page')
         product_list=paginator.get_page(page_number)
         context['product_list'] = product_list
+        context['category'] = Category.objects.all()
         return context
+
+
+def filter_page(request,query):
+    context = {'product_list':Product.objects.filter(category=Category.objects.get(title=query)),'category' :Category.objects.all(),'Name':query}
+    return render(request,"filter.html",context)
 
 class AllProductsView(TemplateView):
     template_name="allproducts.html"
