@@ -25,6 +25,7 @@ urlpatterns=[
     path("product-create/", SellerProductCreateView.as_view(), name="sellerproductcreate"),
     path("product-<pro_id>-sold/", SellerProductSoldView.as_view(), name="sellerproductsold"),
     path("search/", SearchView.as_view(), name="search"),
+    path('searchItem/',search,name='searchItem'),
     path('delete_product/<int:id>/',delete_product,name="delete_product"),
 
 

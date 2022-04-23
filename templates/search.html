@@ -1,31 +1,211 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
+{% load static %}
 
-{% block title %} Search {% endblock %}
+<title>{%block title%}Search{%endblock%}</title>
 
 {% block content %}
-<div class="container">
-    <div class="row ng-scope">
-        <div class="col-md-12">
-            <h3>Search Results for <span class="text-info"> "{{request.GET.keyword}}"</span></h3>
-            <hr>
-            {% for result in results%}
-            <div class="row p-3">
-                <div class="col-md-4"><hr>
-                    <img src="{{result.image.url}}" class="img-thumbnail" style="height: 250px; width:220px; object-fit:cover">
-                </div>
-                <div class="col-md-8"><hr>
-                    <h4><a href="{% url 'thriftNEP:productdetail' result.slug %}">{{result.title}}<a></h4>
-                    <p>{{result.description|truncatewords:50}}</p>
-                    <p>Return Policy:{{result.return_policy}}</p>
-                    {% if result.status == "Sold" %}
-                <p class="text-danger">Product Already Sold</p>
-                {% endif %}
-                    <a href="{% url 'thriftNEP:productdetail' result.slug%}" class="btn btn-info">View</a>
-                    </div>
-                {% endfor %}
+
+<div class="row">
+    <div id="sidebar" class="span3">
+    <div class="well well-small">
+      <p style="text-align: center; font-weight:bold;">All Category</p>
+        <ul class="nav nav-list">
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Mobile</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Laptop</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Musical Instrument</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Fashion </a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Furniture</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Vehicles</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Machinery</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Toys & Games</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Pets & Petcare</a></li>
+            <li><a href="products.html"><span class="icon-chevron-right"></span>Real Estates</a></li>
+            
+           </ul>
+    </div>
+    
+                  <div class="well well-small alert alert-warning cntr">
+                      <h2>50% Discount</h2>
+                      <p> 
+                        Negiotion as per Seller. <br><br><a class="defaultBtn" href="#">Click here </a>
+                      </p>
+                  </div>           
+                <a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
+                <br>
+                <br>
+                <ul class="nav nav-list promowrapper"></ul>
+    
+        </div>
+        
+
+
+        <div class="row">
+          <h3 style="text-align: center;">Your Search Results for <span class="text-info"> "{{key}}"</span></h3>
+          <div class="span9">
+          <div class="well well-small">
+            {% for result in search_list%}
+            <div class="row-fluid">	 
+              <div class="span2">
+                <a href="{% url 'thriftNEP:productdetail' result.slug%}"><img src="{{result.image.url}}" alt="" style="height:120px; width:100px;"></a>
+              </div>
+              <div class="span6">
+                <h5><a href="{% url 'thriftNEP:productdetail' result.slug %}">{{result.title}}</a></h5>
+                <p>
+                  <p>{{result.description|truncatewords:50}}</p>
+                </p>
+              </div>
+              <div class="span4 alignR">
+              <form class="form-horizontal qtyFrm">
+              <h4 > Rs. {{result.price}}</h4><br>
+              <div class="btn-group">
+                <!-- <a href="{% url 'thriftNEP:productdetail' result.slug%}" class="defaultBtn"><span class=" icon-shopping-cart"></span> Add to cart</a> -->
+                <a href="{% url 'thriftNEP:productdetail' result.slug%}" class="shopBtn">VIEW</a>
+               </div>
+                </form>
+              </div>
+            </div>
+            <br>
+            <hr class="soften">
+              {% endfor %}
+            
+            <br>
+          </div>
+          </div>
+          </div>
+
+
+                <hr/>
+  
+        </div>
+      
+        <center style="font-size: 20px;font-weight:bold">
+            {% if search_list.has_previous %} {# whether the previous page exists #}
+                <a href="?page={{search_list.previous_page_number}}">&laquo;</a> {# link to the prev page #}
+            {% endif %}
+            <span>{{search_list.number}}</span> {# the current page number #}
+            
+            {% if search_list.has_next %} {# whether the next page exists #}
+                <a href="?page={{search_list.next_page_number}}">&raquo;</a> {# link to the next page #}
+            {% endif %}
+        </center>
+
+
+
+
+<!--            
+    <nav aria-label="...">
+      <ul class="pagination">
+          {% if search_list.has_previous %}
+          <li class="page-item">
+              <a class="page-link" href="?page={{ search_list.previous_page_number }}" 
+              >Previous</a>
+            </li>
+          {% else %}
+        <li class="page-item disabled ">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for i in search_list.paginator.page_range %}
+
+        {% if i == search_list.number %}
+        <li class="page-item active"><a class="page-link">{{i}}</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        
+        {% if search_list.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ search_list.next_page_number }}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#" 
+          tabindex="-1" aria-disabled="true">Next</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav> -->
+
+
+
+
+    <section class="our_client">
+        <hr class="soften"/>
+        <h4 class="title cntr"><span class="text">About US </span></h4>
+        <hr class="soften"/>
+        <div class="row">
+            <div class="span2">
+                <a href="#"><img alt="" src="assets/img/1.png"></a>
+            </div>
+            <div class="span2">
+                <a href="#"><img alt="" src="assets/img/2.png"></a>
+            </div>
+            <div class="span2">
+                <a href="#"><img alt="" src="assets/img/3.png"></a>
+            </div>
+            <div class="span2">
+                <a href="#"><img alt="" src="assets/img/4.png"></a>
+            </div>
+            <div class="span2">
+                <a href="#"><img alt="" src="assets/img/5.png"></a>
+            </div>
+            <div class="span2">
+                <a href="#"><img alt="" src="assets/img/6.png"></a>
             </div>
         </div>
-        </div>
-</div>
+    </section>
+    
+    <!--
+    Footer
+    -->
+    <footer class="footer">
+    <div class="row">
+    <div class="span2">
+    <h5>Your Account</h5>
+    <a href="#">YOUR ACCOUNT</a><br>
+    <a href="#">PERSONAL INFORMATION</a><br>
+    <a href="#">ADDRESSES</a><br>
+    <a href="#">DISCOUNT</a><br>
+    <a href="#">ORDER HISTORY</a><br>
+     </div>
+    <div class="span2">
+    <h5>Iinformation</h5>
+    <a href="contact.html">CONTACT</a><br>
+    <a href="#">SITEMAP</a><br>
+    <a href="#">LEGAL NOTICE</a><br>
+    <a href="#">TERMS AND CONDITIONS</a><br>
+    <a href="#">ABOUT US</a><br>
+     </div>
+    <div class="span2">
+    <h5>Our Offer</h5>
+    <a href="#">NEW PRODUCTS</a> <br>
+    <a href="#">TOP SELLERS</a><br>
+    <a href="#">SPECIALS</a><br>
+    <a href="#">MANUFACTURERS</a><br>
+    <a href="#">SUPPLIERS</a> <br/>
+     </div>
+     <div class="span6">
+    <h5>The standard chunk of Lorem</h5>
+    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
+     those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et 
+     Malorum" by Cicero are also reproduced in their exact original form, 
+    accompanied by English versions from the 1914 translation by H. Rackham.
+     </div>
+     </div>
+    </footer>
+    </div><!-- /container -->
+    
+    <div class="copyright">
+      <div class="container">
+        <p class="pull-right">
+          <a href="#"><img src="assets/img/maestro.png" alt="payment"></a>
+        </p>
+        <span>Copyright &copy; 2022 | thriftNEP store BY: Dinesh Pariyar</span>
+      </div>
+      </div>
+    <a href="#" class="gotop"><i class="icon-double-angle-up"></i></a>
 
 {% endblock %}

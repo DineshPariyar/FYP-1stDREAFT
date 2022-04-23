@@ -45,14 +45,15 @@
 	<h3> Registration</h3>	
 	<hr class="soft"/>
 	<div class="well">
-	<form class="form-horizontal">
+	<form class="form-horizontal" method="POST">
+		{% csrf_token %}
 		<h3 style="text-align: center;">Please Login As A Member</h3>
         <hr>
 
 		<div class="control-group">
 			<label class="control-label" for="inputFname">Username:<sup>*</sup></label>
 			<div class="controls">
-			  <input name="username" type="text" id="inputFname" placeholder="Username" required>
+			  <input name="username" type="text" id="inputFname" placeholder="username" required />
 			</div>
 		 </div>
 
@@ -60,16 +61,16 @@
 		<div class="control-group">
 		<label class="control-label">Your Password:<sup>*</sup></label>
 		<div class="controls">
-		  <input name="password" type="password" placeholder="Password" required>
+		  <input name="password" type="password" placeholder="Password" required />
 		</div>
 	  </div>
 
 	<div class="control-group">
 		<div class="controls">
-         <a href="{%url 'thriftNEP:sellerregistration' %}"><p style="font-weight:bold">Haven't Registered YET? <span style="color:rgb(233, 15, 15)">Register</span></p></a> 
-		 <input type="submit" name="submitAccount" value="Register" class="exclusive shopBtn">
-		 p>Forgit? Password?<a href="{% url 'thriftNEP:forgotpw' %}">Reset now</a></p>
-                <p>don't have account?<a href="{%url 'thriftNEP:sellerregistration' %}">Register here</a></p>
+         <a href="{%url 'thriftNEP:sellerregistration' %}"><p style="font-weight:bold">Dont Have Account? <span style="color:rgb(233, 15, 15)">Register</span></p></a> 
+		 <input type="submit" value="Login" class="exclusive shopBtn">
+		 <p>Forget Password?<a href="{% url 'thriftNEP:forgotpw' %}">Reset now</a></p>
+               
 		</div>
         <br>
         <br>

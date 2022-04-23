@@ -16,7 +16,7 @@ from django.conf import settings
 from django.db.models import Q
 from genericpath import exists
 from email.mime import image
-from urllib import request
+from urllib import request, response
 from turtle import title
 from cgitb import text
 from .models import *
@@ -31,7 +31,7 @@ class HomeView(TemplateView):  #here TemplateView is being inheritated and all t
         context = super().get_context_data(**kwargs)
         #what doe this does is whenever we add some context it express in the frontend.
         all_products = Product.objects.all().order_by("-id")
-        paginator = Paginator(all_products, 9)
+        paginator = Paginator(all_products, 6)
         page_number = self.request.GET.get('page')
         product_list=paginator.get_page(page_number)
         context['product_list'] = product_list
@@ -248,9 +248,42 @@ class SearchView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         kw = self.request.GET.get("keyword")
-        results = Product.objects.filter(Q(title__icontains=kw)  | Q(description__icontains=kw) | Q(return_policy__icontains=kw))
-        context["results"]= results
-        print(results)
+        search_list = Product.objects.filter(Q(title__icontains=kw)  | Q(description__icontains=kw) | Q(return_policy__icontains=kw))
+        paginator = Paginator(search_list, 9)
+        page_number = self.request.GET.get('page')
+        print("Dinesh don")
+        print(search_list)
+        search_list=paginator.get_page(page_number)
+        context["search_list"]= search_list
+        print("Dinesh don")
+        print(search_list)
         return context
 
 
+#  all_products = Product.objects.all().order_by("-id")
+#         paginator = Paginator(all_products, 9)
+#         page_number = self.request.GET.get('page')
+#         product_list=paginator.get_page(page_number)
+#         context['product_list'] = product_list
+#         return context
+
+
+
+def search(request):
+    kw = request.GET.get("keyword") 
+    if kw is None:
+        kw = request.COOKIES.get('kw')
+  
+    search_list = Product.objects.filter(Q(title__icontains=kw)  | Q(description__icontains=kw) | Q(return_policy__icontains=kw))  # fetching all post objects from database
+    p = Paginator(search_list, 6)  
+    page_number = request.GET.get('page')
+    try:
+        search_list = p.get_page(page_number)  
+    except PageNotAnInteger:
+        search_list = p.page(1)
+    except EmptyPage:
+        search_list = p.page(p.num_pages)
+    context = {'search_list': search_list,'key':kw}
+    response = render(request, 'search.html', context)
+    response.set_cookie('kw', kw, max_age = None, expires = None)
+    return response

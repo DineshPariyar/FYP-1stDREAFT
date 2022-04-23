@@ -70,12 +70,22 @@
         </div>
 
 
-           
 
-    <!-- 
-    Clients 
 
-    -->
+
+<!-- Pagination -->
+    
+<center style="font-size: 18px;font-weight:bold">
+  {% if product_list.has_previous %} {# whether the previous page exists #}
+      <a href="?page={{product_list.previous_page_number}}" style="color: #b615e7;"><<<<</a> {# link to the prev page #}
+  {% endif %}
+  <span style="color:#b615e7; text-align:center;">{{product_list.number}}</span> {# the current page number #}
+  
+  {% if product_list.has_next %} {# whether the next page exists #}
+      <a href="?page={{product_list.next_page_number}}" style="color:#b615e7;">  >>>></a> {# link to the next page #}
+  {% endif %}
+</center>
+
     
     <section class="our_client">
         <hr class="soften"/>
