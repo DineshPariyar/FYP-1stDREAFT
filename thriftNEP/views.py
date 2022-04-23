@@ -50,6 +50,8 @@ class AllProductsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['allcategories']=Category.objects.all()
+        context['category'] = Category.objects.all()
+
         return context
 
 class ProductDetailView(TemplateView):
@@ -60,6 +62,8 @@ class ProductDetailView(TemplateView):
         url_slug = self.kwargs['slug']
         product = Product.objects.get(slug=url_slug)
         context['product']=product
+        context['category'] = Category.objects.all()
+
         return context
 
 
@@ -88,6 +92,8 @@ def SellerRegistrationView(request):
         full_name=request.POST["full_name"]
         address=request.POST["address"]
         number=request.POST["number"]
+        context['category'] = Category.objects.all()
+
         user=User.objects.create_user(username=username,email=email,password=password)
         user.first_name = full_name
         user.save();
@@ -112,6 +118,8 @@ class SellerLoginView(FormView):
             login(self.request, usr)
         else:
             return render(self.request,self.template_name, {"form": self.form_class, "error":"Invalid Username and Password"})
+
+        context['category'] = Category.objects.all()
 
         return super().form_valid(form)
 
@@ -179,6 +187,8 @@ class SellerMixin(object):
         except Exception as e:
             print(e)
             return redirect("thriftNEP:sellerlogin")
+        # context['category'] = Category.objects.all()
+
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -186,10 +196,16 @@ class SellerMixin(object):
 class SellerLogoutView(SellerMixin, View):
     def get(self,request):
         logout(request)
+        
         return redirect("thriftNEP:home")
 
 class HelpView(TemplateView):
     template_name= "help.html"
+
+    def get_context_data(self, **kwargs):
+            context =super().get_context_data(**kwargs)
+            context['category'] = Category.objects.all()
+            return context
 
 
 
@@ -201,6 +217,7 @@ class SellerProfileView(SellerMixin, TemplateView):
         context =super().get_context_data(**kwargs)
         context['seller'] = self.seller
         context["product_list"] = Product.objects.filter(seller=self.seller).order_by("-id")
+        # context['category'] = Category.objects.all()
         return context
         
 
@@ -220,6 +237,7 @@ class SellerProductCreateView(SellerMixin, CreateView):
         for i in more_images:
             ProductImages.objects.create(product=p, image=i)
 
+        context['category'] = Category.objects.all()
         return super().form_valid(form)
 
 
@@ -264,6 +282,7 @@ class SearchView(TemplateView):
         context["search_list"]= search_list
         print("Dinesh don")
         print(search_list)
+        context['category'] = Category.objects.all()
         return context
 
 

@@ -10,8 +10,7 @@
       <p style="text-align: center; font-weight:bold;">All Category</p>
         <ul class="nav nav-list">
         {% for cat in category %}
-        
-         <li><a href="{% url 'thriftNEP:filter' cat.title  %}"><span class="icon-chevron-right"></span>{{cat.title}}</a></li>
+        <li><a href="{% url 'thriftNEP:filter' cat.title  %}"><span class="icon-chevron-right"></span>{{cat.title}}</a></li>
         {% endfor %}
             
            </ul>

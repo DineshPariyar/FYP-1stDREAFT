@@ -35,11 +35,12 @@
 	<div class="topNav">
 		<div class="container">
 			<div class="alignR">
-				<a href="{% url 'thriftNEP:home' %}"> <span class="icon-home"></span> Home</a> 
+			.
+				{% comment %} <a href="{% url 'thriftNEP:home' %}"> <span class="icon-home"></span> Home</a> 
 				<a href="{%url 'thriftNEP:sellerprofile' %}"><span class="icon-user"></span> My Profile</a> 
 				<a href="{%url 'thriftNEP:sellerregistration' %}"><span class="icon-edit"></span> Register </a> 
 				<a href="{% url 'thriftNEP:help'%}"><span class="icon-envelope"></span> Help</a>
-				
+				 {% endcomment %}
 			</div>
 		</div>
 	</div>
@@ -83,8 +84,19 @@ Navigation Bar Section
 		  </a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-			  <li class=""><a href="{% url 'thriftNEP:home' %}">Home	</a></li>
-			  <li class=""><a href="{% url 'thriftNEP:allproducts'%}">Category</a></li>
+			  <li class=""><a href="{% url 'thriftNEP:home' %}">Home</a></li>
+			  {% comment %} <li class=""><a href="{% url 'thriftNEP:allproducts'%}">Category</a></li> {% endcomment %}
+			  	<li class="dropdown">
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span></span>All Category <b class="caret"></b></a>
+					<div class="dropdown-menu" style="width: 10px !important;">
+						{% for cat in category %}
+						<a href="{% url 'thriftNEP:filter' cat.title  %}"><span class="icon-chevron-right"></span>{{cat.title}}</a> <br>
+
+						{% comment %} <li><a href="{% url 'thriftNEP:filter' cat.title  %}"><span class="icon-chevron-right"></span>{{cat.title}}</a></li> {% endcomment %}
+						{% endfor %}
+						
+
+					</div>
 			  <li class=""><a href="{% url 'thriftNEP:help'%}">Help</a></li>
 			</ul>
 
@@ -105,7 +117,7 @@ Navigation Bar Section
 					<div class="dropdown-menu" style="width: 10px !important;">
 						{%if request.user.seller %}
 						<a href="{%url 'thriftNEP:sellerprofile' %}" class="btn" style="padding:7px; width:130px; margin-left:6px;">Profile</a><br>
-						<a href="{%url 'thriftNEP:sellerlogout' %}" class="btn" style="padding:7px; width:130px; margin-left:5px;">Logout</a>
+						<a href="{%url 'thriftNEP:sellerlogout' %}" class="btn" style="padding:7px; width:130px; margin-left:5px; ">Logout</a>
 						
 						{%else%}
 						<a href="{%url 'thriftNEP:sellerlogin' %}" class="btn" style="padding:7px; width:130px; margin-left:6px;">Sign UP</a><br>
