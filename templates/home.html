@@ -10,19 +10,22 @@
       <p style="text-align: center; font-weight:bold;">All Category</p>
         <ul class="nav nav-list">
         {% for cat in category %}
-        <li><a href="{% url 'thriftNEP:filter' cat.title  %}"><span class="icon-chevron-right"></span>{{cat.title}}</a></li>
+        <hr class="soften"/>
+        <li><a href="{% url 'thriftNEP:filter' cat.title  %}" ><span class="icon-chevron-right"></span>{{cat.title}}</a></li>
+        <hr class="soften"/>
         {% endfor %}
             
            </ul>
     </div>
-    
+
                   <div class="well well-small alert alert-warning cntr">
-                      <h2>50% Discount</h2>
+                      <h2>Add Your ADS here</h2>
                       <p> 
-                        Negiotion as per Seller. <br><br><a class="defaultBtn" href="#">Click here </a>
+                     
+                      Become member to Add your post<br><br><a class="defaultBtn" href="{% url 'thriftNEP:sellerproductcreate' %}">Add Product</a>
                       </p>
                   </div>           
-                <a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
+                <a class="shopBtn btn-block" href="#">Upcoming products <br><small></small></a>
                 <br>
                 <br>
                 <ul class="nav nav-list promowrapper"></ul>
@@ -70,12 +73,12 @@
     
 <center style="font-size: 18px;font-weight:bold">
   {% if product_list.has_previous %} {# whether the previous page exists #}
-      <a href="?page={{product_list.previous_page_number}}" style="color: #b615e7;"><<<<</a> {# link to the prev page #}
+      <a href="?page={{product_list.previous_page_number}}" style="color: #b615e7;">&laquo;</a> {# link to the prev page #}
   {% endif %}
   <span style="color:#b615e7; text-align:center;">{{product_list.number}}</span> {# the current page number #}
   
   {% if product_list.has_next %} {# whether the next page exists #}
-      <a href="?page={{product_list.next_page_number}}" style="color:#b615e7;">  >>>></a> {# link to the next page #}
+      <a href="?page={{product_list.next_page_number}}" style="color:#b615e7;">&raquo;</a> {# link to the next page #}
   {% endif %}
 </center>
 
@@ -111,30 +114,7 @@
     -->
     <footer class="footer">
     <div class="row">
-    <div class="span2">
-    <h5>Your Account</h5>
-    <a href="#">YOUR ACCOUNT</a><br>
-    <a href="#">PERSONAL INFORMATION</a><br>
-    <a href="#">ADDRESSES</a><br>
-    <a href="#">DISCOUNT</a><br>
-    <a href="#">ORDER HISTORY</a><br>
-     </div>
-    <div class="span2">
-    <h5>Iinformation</h5>
-    <a href="contact.html">CONTACT</a><br>
-    <a href="#">SITEMAP</a><br>
-    <a href="#">LEGAL NOTICE</a><br>
-    <a href="#">TERMS AND CONDITIONS</a><br>
-    <a href="#">ABOUT US</a><br>
-     </div>
-    <div class="span2">
-    <h5>Our Offer</h5>
-    <a href="#">NEW PRODUCTS</a> <br>
-    <a href="#">TOP SELLERS</a><br>
-    <a href="#">SPECIALS</a><br>
-    <a href="#">MANUFACTURERS</a><br>
-    <a href="#">SUPPLIERS</a> <br/>
-     </div>
+  
      <div class="span6">
     <h5>The standard chunk of Lorem</h5>
     The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
@@ -148,12 +128,9 @@
     
     <div class="copyright">
       <div class="container">
-        <p class="pull-right">
-          <a href="#"><img src="assets/img/maestro.png" alt="payment"></a>
-        </p>
-        <span>Copyright &copy; 2022 | thriftNEP store BY: Dinesh Pariyar</span>
+        
+        <span style="text-align: center;">Copyright &copy; 2022 | thriftNEP store BY: Dinesh Pariyar</span>
       </div>
       </div>
-    <a href="#" class="gotop"><i class="icon-double-angle-up"></i></a>
 
 {% endblock %}

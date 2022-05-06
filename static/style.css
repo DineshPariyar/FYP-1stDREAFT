@@ -13,7 +13,7 @@ body{background:url(assets/img/white_leather.png) repeat 0 0; }
 .offerNoteWrapper{border:6px solid #fff; margin: 6px;}
 .offerNoteWrapper:hover{border-color:rgb(252, 111, 0);}
 h3 {font-size: 18px;line-height: 1.5em;}
-hr.soften {margin: 8px 0;background: #DDD;}
+hr.soften {margin: 2px 0;background: #DDD;}
 .moreOptopm.carousel .carousel-control,.moreOptopm.carousel .carousel-control:hover {background:transparent; }
 .moreOptopm.carousel .carousel-control {border: 0; top: 50%; bottom: 0;}
 .moreOptopm.carousel .carousel-control.right, .moreOptopm.carousel .carousel-control.right:hover {right:0; }

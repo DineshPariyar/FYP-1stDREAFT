@@ -1,48 +1,45 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<title>{%block title%}Register{%endblock%}</title>
+<title>{%block title%}Login{%endblock%}</title>
 {% block content %}
 
 <div class="row">
-<div id="sidebar" class="span3">
-    <div class="well well-small">
-        <p style="text-align: center; font-weight:bold;">All Category</p>
-        <ul class="nav nav-list">
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Mobile</a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Laptop</a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Musical Instrument</a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Fashion </a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Furniture</a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Vehicles</a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Machinery</a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Toys & Games</a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Pets & Petcare</a></li>
-            <li><a href="products.html"><span class="icon-chevron-right"></span>Real Estates</a></li>
-            
-           </ul>
-    </div>
-
-			  <div class="well well-small alert alert-warning cntr">
-				  <h2>50% Discount</h2>
-				  <p> 
-                    Negiotion as per Seller.<br><br><a class="defaultBtn" href="#">Click here </a>
-				  </p>
-			  </div>			
-			<a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
-			<br>
-			<br>
-
-	</div>
+    <div id="sidebar" class="span3">
+		<div class="well well-small">
+		  <p style="text-align: center; font-weight:bold;">All Category</p>
+			<ul class="nav nav-list">
+			{% for cat in category %}
+			<hr class="soften"/>
+			<li><a href="{% url 'thriftNEP:filter' cat.title  %}" ><span class="icon-chevron-right"></span>{{cat.title}}</a></li>
+			<hr class="soften"/>
+			{% endfor %}
+				
+			   </ul>
+		</div>
+	
+					  <div class="well well-small alert alert-warning cntr">
+						  <h2>Add Your ADS here</h2>
+						  <p> 
+						 
+						  Become member to Add your post<br><br><a class="defaultBtn" href="{% url 'thriftNEP:sellerproductcreate' %}">Add Product</a>
+						  </p>
+					  </div>           
+					<a class="shopBtn btn-block" href="#">Upcoming products <br><small></small></a>
+					<br>
+					<br>
+					<ul class="nav nav-list promowrapper"></ul>
+		
+			</div>
 
 
 
 	<div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">Registration</li>
+		<li><a href="{% url 'thriftNEP:home' %}">Home</a> <span class="divider">/</span></li>
+		<li class="active">Login</li>
     </ul>
-	<h3> Registration</h3>	
+	<h3> Login</h3>	
 	<hr class="soft"/>
 	<div class="well">
 	<form class="form-horizontal" method="POST">
@@ -72,8 +69,9 @@
 		 {%if error %}
                     <li style="color: red;">{{error}}</li>
         {%endif%}
-		 <p> <li> Forget Password? <a href="{% url 'thriftNEP:forgotpw' %}"> <button style="color: #ffffff; background-color:rgb(213, 86, 86); border-radius:5px;" > Reset now</button></a></li></p>
-               
+		 <!-- { <p> <li> Forget Password? <a href="{% url 'thriftNEP:forgotpw' %}"> <button style="color: #ffffff; background-color:rgb(213, 86, 86); border-radius:5px;" > Reset now</button></a></li></p>  -->
+		 <p> <li> Forget Password? <a href="{% url 'thriftNEP:forgotpw' %}"> Reset Password</a></li></p>
+        
 		</div>
         <br>
         <br>

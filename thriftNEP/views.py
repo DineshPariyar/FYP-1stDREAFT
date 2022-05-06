@@ -40,11 +40,13 @@ class HomeView(TemplateView):  #here TemplateView is being inheritated and all t
         return context
 
 
-def filter_page(request,query):
+def filter_page(request,query):# we use this for the listing of the category list dyanamically.
     context = {'product_list':Product.objects.filter(category=Category.objects.get(title=query)),'category' :Category.objects.all(),'Name':query}
     return render(request,"filter.html",context)
 
-class AllProductsView(TemplateView):
+
+
+class AllProductsView(TemplateView): # in this section the function is writeen to show al the products in the home page.
     template_name="allproducts.html"
 
     def get_context_data(self, **kwargs):
@@ -92,7 +94,7 @@ def SellerRegistrationView(request):
         full_name=request.POST["full_name"]
         address=request.POST["address"]
         number=request.POST["number"]
-        context['category'] = Category.objects.all()
+        # context['category'] = Category.objects.all()
 
         user=User.objects.create_user(username=username,email=email,password=password)
         user.first_name = full_name
@@ -119,7 +121,7 @@ class SellerLoginView(FormView):
         else:
             return render(self.request,self.template_name, {"form": self.form_class, "error":"Invalid Username and Password"})
 
-        context['category'] = Category.objects.all()
+        # context['category'] = Category.objects.all()
 
         return super().form_valid(form)
 
@@ -188,7 +190,6 @@ class SellerMixin(object):
             print(e)
             return redirect("thriftNEP:sellerlogin")
         # context['category'] = Category.objects.all()
-
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -225,6 +226,7 @@ class SellerProductCreateView(SellerMixin, CreateView):
     template_name = "sellerproductcreate.html"
     form_class = SellerProductCreateForm
     success_url = reverse_lazy("thriftNEP:sellerprofile")
+    # context['category'] = Category.objects.all()
 
     def form_valid(self, form):
         form.instance.seller = self.seller
@@ -232,12 +234,12 @@ class SellerProductCreateView(SellerMixin, CreateView):
         form.instance.seller_address = self.seller.address
         form.instance.status = "On Sale"
 
-        p=form.save()
-        more_images=self.request.FILES.getlist("more_images")
-        for i in more_images:
-            ProductImages.objects.create(product=p, image=i)
+        form.save()
+        # more_images=self.request.FILES.getlist("more_images")
+        # for i in more_images:
+        #     ProductImages.objects.create(product=p, image=i)
 
-        context['category'] = Category.objects.all()
+        # context['category'] = Category.objects.all()
         return super().form_valid(form)
 
 
@@ -312,4 +314,6 @@ def search(request):
     context = {'search_list': search_list,'key':kw}
     response = render(request, 'search.html', context)
     response.set_cookie('kw', kw, max_age = None, expires = None)
+    context['category'] = Category.objects.all()
+
     return response

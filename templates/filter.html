@@ -5,25 +5,27 @@
 {% block content %}
 
 <div class="row">
-    <div id="sidebar" class="span3">
+  <div id="sidebar" class="span3">
     <div class="well well-small">
       <p style="text-align: center; font-weight:bold;">All Category</p>
         <ul class="nav nav-list">
-         {% for cat in category %}
-        
-         <li><a href="{% url 'thriftNEP:filter' cat.title  %}"><span class="icon-chevron-right"></span>{{cat.title}}</a></li>
+        {% for cat in category %}
+        <hr class="soften"/>
+        <li><a href="{% url 'thriftNEP:filter' cat.title  %}" ><span class="icon-chevron-right"></span>{{cat.title}}</a></li>
+        <hr class="soften"/>
         {% endfor %}
             
            </ul>
     </div>
-    
+
                   <div class="well well-small alert alert-warning cntr">
-                      <h2>50% Discount</h2>
+                      <h2>Add Your ADS here</h2>
                       <p> 
-                        Negiotion as per Seller. <br><br><a class="defaultBtn" href="#">Click here </a>
+                      
+                      Become member to Add your post<br><br><a class="defaultBtn" href="{% url 'thriftNEP:sellerproductcreate' %}">Add Product</a>
                       </p>
                   </div>           
-                <a class="shopBtn btn-block" href="#">Upcoming products <br><small>Click to view</small></a>
+                <a class="shopBtn btn-block" href="#">Upcoming products <br><small></small></a>
                 <br>
                 <br>
                 <ul class="nav nav-list promowrapper"></ul>
