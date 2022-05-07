@@ -47,6 +47,14 @@
 		<h3 style="text-align: center;">Please Register To Become A Member</h3>
         <hr>
 
+		{% if messages %}
+		<ul class="messages" style="text-align: center;">
+			{% for message in messages %}
+			<li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style: none; color:red; font-weight:bolder">{{ message }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+
 		<div class="control-group">
 			<label class="control-label" for="inputFname">Username:<sup>*</sup></label>
 			<div class="controls">

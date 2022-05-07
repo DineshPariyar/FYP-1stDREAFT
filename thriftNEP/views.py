@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from .utils import password_reset_token
 from django.urls import reverse, reverse_lazy
 from django.http import JsonResponse
+from django.contrib import messages
 from django.contrib.auth.models import User, auth #new
 from django.core.mail import send_mail
 from itertools import chain, product
@@ -94,13 +95,19 @@ def SellerRegistrationView(request):
         full_name=request.POST["full_name"]
         address=request.POST["address"]
         number=request.POST["number"]
-        # context['category'] = Category.objects.all()
+        
+        
+        if User.objects.filter(username = username ) or User.objects.filter(email=email):
+            messages.error(request, "This username or email is already taken")
+            return redirect('/register/')
+        else:
+            user=User.objects.create_user(username=username,email=email,password=password)
 
-        user=User.objects.create_user(username=username,email=email,password=password)
-        user.first_name = full_name
-        user.save()
-        seller=Seller(user=user,full_name=full_name,address=address,mobile=number)
-        seller.save()
+            user.first_name = full_name
+            user.save()
+            seller=Seller(user=user,full_name=full_name,address=address,mobile=number)
+            seller.save()
+       
         #create an otp and send it to the provided mail.
        
 
@@ -109,9 +116,9 @@ def SellerRegistrationView(request):
 
         #redirect user to otp verification page.
 
-
+        messages.success(request,"Your Account was Creadted| Proceed for Login with Username and Password")
         print('user created')
-        return redirect('/')
+        return redirect('/login/')
     else:
         return render(request,"registerTest.html")
 

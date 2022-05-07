@@ -38,8 +38,16 @@
     <ul class="breadcrumb">
 		<li><a href="{% url 'thriftNEP:home' %}">Home</a> <span class="divider">/</span></li>
 		<li class="active">Login</li>
+	
     </ul>
 	<h3> Login</h3>	
+	{% if messages %}
+	<ul class="messages" style="text-align: center;">
+		{% for message in messages %}
+		<li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style: none; color:red; font-weight:bolder">{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
 	<hr class="soft"/>
 	<div class="well">
 	<form class="form-horizontal" method="POST">
