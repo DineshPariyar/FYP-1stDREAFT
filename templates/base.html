@@ -26,12 +26,12 @@
 	<div class="topNav">
 		<div class="container">
 			<div class="alignR">
-			.
-				{% comment %} <a href="{% url 'thriftNEP:home' %}"> <span class="icon-home"></span> Home</a> 
+		
+				<a href="{% url 'thriftNEP:home' %}"> <span class="icon-home"></span> Home</a> 
 				<a href="{%url 'thriftNEP:sellerprofile' %}"><span class="icon-user"></span> My Profile</a> 
-				<a href="{%url 'thriftNEP:sellerregistration' %}"><span class="icon-edit"></span> Register </a> 
+				{% comment %} <a href="{%url 'thriftNEP:sellerregistration' %}"><span class="icon-edit"></span> Register </a>  {% endcomment %}
 				<a href="{% url 'thriftNEP:help'%}"><span class="icon-envelope"></span> Help</a>
-				 {% endcomment %}
+				
 			</div>
 		</div>
 	</div>
@@ -47,7 +47,7 @@ Lower Header Section
 	<div class="span4">
 	<h1>
 	<a class="logo" href="{% url 'thriftNEP:home' %}">
-		<img src="{% static 'img/logo.png' %}" alt="">
+		<img src="{% static 'img/logo1.png' %}" alt="" style="height: 70px; width:250px;">
 	</a>
 	</h1>
 	</div>
@@ -58,6 +58,12 @@ Lower Header Section
 	</h1>
 	</div>
 	</div>
+	<div class="span4 alignR">
+		<p><br> <strong> Support (24/7) :  0800 1234 678 </strong><br><br></p>
+		<span class="btn btn-warning btn-mini">$</span>
+		<span class="btn btn-mini">&pound;</span>
+		<span class="btn btn-mini">&euro;</span>
+		</div>
 
 </div>
 </header>

@@ -98,10 +98,76 @@
 </div>
 </div>
 
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.easing-1.3.min.js"></script>
-    <script src="assets/js/jquery.scrollTo-1.4.3.1-min.js"></script>
-    <script src="assets/js/shop.js"></script>
+<section class="our_client">
+	<hr class="soften"/>
+	<h4 class="title cntr"><span class="text">For More Information</span></h4>
+	<hr class="soften"/>
+	<div class="row">
+		<div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/khalti.png' %}"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/e.jpg' %}"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/fonepay.png' %}"></a>
+		</div>
+
+    <div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/esea.png' %}"></a>
+		</div>
+
+    <div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/esewa.png' %}"></a>
+		</div>
+
+</section>
+
+
+<footer class="footer">
+<div class="row-fluid">
+<div class="span2">
+<h5>Your Account</h5>
+<a href="{%url 'thriftNEP:sellerprofile' %}">Personal Account</a><br>
+
+
+ </div>
+<div class="span2">
+<h5>Iinformation</h5>
+<a href="{% url 'thriftNEP:help'%}">Help</a><br>
+
+ </div>
+<div class="span2">
+<h5>Our Offer</h5>
+<a href="{% url 'thriftNEP:home' %}">OUR PRODUCTS</a> <br>
+<a href="#">TOP SELLERS</a><br>
+
+ </div>
+ <div class="span6">
+<h5>About Us</h5>
+
+ </div>
+ </div>
+</footer>
+</div>
+
+<br>
+<div class="copyright" style="background-color: #ffffff;">
+<div class="container">
+	<p class="pull-right">
+		<a href="{% url 'thriftNEP:home' %}"><img src="{% static 'img/logo1.png' %}" alt="logo" style="height:30px; width:150px;"></a>
+
+	</p>
+	<span style="font-size: 16px;">Copyright &copy; 2022 Designed By :: <span style="color: #252427; font-weight:bolder; font-style:unset">DINESH PARIYAR</span> </span>
+</div>
+</div>
+
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easing-1.3.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollTo-1.4.3.1-min.js' %}"></script>
+    <script src="{% static 'js/shop.js' %}"></script>
+
 
 {% endblock %}

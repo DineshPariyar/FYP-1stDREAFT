@@ -98,9 +98,18 @@ def SellerRegistrationView(request):
 
         user=User.objects.create_user(username=username,email=email,password=password)
         user.first_name = full_name
-        user.save();
+        user.save()
         seller=Seller(user=user,full_name=full_name,address=address,mobile=number)
-        seller.save();
+        seller.save()
+        #create an otp and send it to the provided mail.
+       
+
+        #save that otp to seller account.
+
+
+        #redirect user to otp verification page.
+
+
         print('user created')
         return redirect('/')
     else:
@@ -117,6 +126,8 @@ class SellerLoginView(FormView):
         pword =form.cleaned_data["password"]
         usr=authenticate(username=uname, password=pword)
         if usr is not None and Seller.objects.filter(user=usr).exists() :
+         #if usr is not None and Seller.objects.filter(user=usr, is_active=True).exists() :
+       
             login(self.request, usr)
         else:
             return render(self.request,self.template_name, {"form": self.form_class, "error":"Invalid Username and Password"})
@@ -184,8 +195,10 @@ class PasswordResetView(FormView):
 
 class SellerMixin(object):
     def dispatch(self, request, *args, **kwargs):
-        try:
+        try:        
             self.seller = request.user.seller
+            #if self.seller.is_active is False:
+                #return redirect("thriftNEP:sellerlogin")
         except Exception as e:
             print(e)
             return redirect("thriftNEP:sellerlogin")

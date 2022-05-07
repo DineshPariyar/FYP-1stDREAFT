@@ -22,6 +22,8 @@ class Seller(models.Model):
     address = models.CharField(max_length=200, null=True, blank=True)
     mobile = models.CharField(max_length=200, null=True, blank=True)
     joined_on = models.DateTimeField(auto_now_add=True)
+    # is_active=models.BooleanField(default=False)
+    # otp = models.CharField(max_length=5, null=True, blank=True)
 
     def __str__(self):
         return self.full_name

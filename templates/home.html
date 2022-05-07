@@ -73,64 +73,84 @@
     
 <center style="font-size: 18px;font-weight:bold">
   {% if product_list.has_previous %} {# whether the previous page exists #}
-      <a href="?page={{product_list.previous_page_number}}" style="color: #b615e7;">&laquo;</a> {# link to the prev page #}
+      <a href="?page={{product_list.previous_page_number}}" style="color: #b615e7;">Previous &laquo;</a> {# link to the prev page #}
   {% endif %}
   <span style="color:#b615e7; text-align:center;">{{product_list.number}}</span> {# the current page number #}
   
   {% if product_list.has_next %} {# whether the next page exists #}
-      <a href="?page={{product_list.next_page_number}}" style="color:#b615e7;">&raquo;</a> {# link to the next page #}
+      <a href="?page={{product_list.next_page_number}}" style="color:#b615e7;">&raquo; Next</a> {# link to the next page #}
   {% endif %}
 </center>
 
-    
-    <section class="our_client">
-        <hr class="soften"/>
-        <h4 class="title cntr"><span class="text">About US </span></h4>
-        <hr class="soften"/>
-        <div class="row">
-            <div class="span2">
-                <a href="#"><img alt="" src="assets/img/1.png"></a>
-            </div>
-            <div class="span2">
-                <a href="#"><img alt="" src="assets/img/2.png"></a>
-            </div>
-            <div class="span2">
-                <a href="#"><img alt="" src="assets/img/3.png"></a>
-            </div>
-            <div class="span2">
-                <a href="#"><img alt="" src="assets/img/4.png"></a>
-            </div>
-            <div class="span2">
-                <a href="#"><img alt="" src="assets/img/5.png"></a>
-            </div>
-            <div class="span2">
-                <a href="#"><img alt="" src="assets/img/6.png"></a>
-            </div>
-        </div>
-    </section>
-    
-    <!--
-    Footer
-    -->
-    <footer class="footer">
-    <div class="row">
-  
-     <div class="span6">
-    <h5>The standard chunk of Lorem</h5>
-    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for
-     those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et 
-     Malorum" by Cicero are also reproduced in their exact original form, 
-    accompanied by English versions from the 1914 translation by H. Rackham.
-     </div>
-     </div>
-    </footer>
-    </div><!-- /container -->
-    
-    <div class="copyright">
-      <div class="container">
-        
-        <span style="text-align: center;">Copyright &copy; 2022 | thriftNEP store BY: Dinesh Pariyar</span>
-      </div>
-      </div>
+<section class="our_client">
+	<hr class="soften"/>
+	<h4 class="title cntr"><span class="text">For More Information</span></h4>
+	<hr class="soften"/>
+	<div class="row">
+		<div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/khalti.png' %}"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/e.jpg' %}"></a>
+		</div>
+		<div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/fonepay.png' %}"></a>
+		</div>
+
+    <div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/esea.png' %}"></a>
+		</div>
+
+    <div class="span2">
+			<a href="#"><img alt="" src="{% static 'img/esewa.png' %}"></a>
+		</div>
+
+</section>
+
+
+<footer class="footer">
+<div class="row-fluid">
+<div class="span2">
+<h5>Your Account</h5>
+<a href="{%url 'thriftNEP:sellerprofile' %}">Personal Account</a><br>
+
+
+ </div>
+<div class="span2">
+<h5>Iinformation</h5>
+<a href="{% url 'thriftNEP:help'%}">Help</a><br>
+
+ </div>
+<div class="span2">
+<h5>Our Offer</h5>
+<a href="{% url 'thriftNEP:home' %}">OUR PRODUCTS</a> <br>
+<a href="#">TOP SELLERS</a><br>
+
+ </div>
+ <div class="span6">
+<h5>About Us</h5>
+
+ </div>
+ </div>
+</footer>
+</div>
+
+<br>
+<div class="copyright" style="background-color: #ffffff;">
+<div class="container">
+	<p class="pull-right">
+		<a href="{% url 'thriftNEP:home' %}"><img src="{% static 'img/logo1.png' %}" alt="logo" style="height:30px; width:150px;"></a>
+
+	</p>
+	<span style="font-size: 16px;">Copyright &copy; 2022 Designed By :: <span style="color: #252427; font-weight:bolder; font-style:unset">DINESH PARIYAR</span> </span>
+</div>
+</div>
+
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easing-1.3.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollTo-1.4.3.1-min.js' %}"></script>
+    <script src="{% static 'js/shop.js' %}"></script>
 
 {% endblock %}
