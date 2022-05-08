@@ -1,8 +1,10 @@
 from unicodedata import category
 from django.views.generic import  View, TemplateView,CreateView, FormView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
+
 from django.core.paginator import Paginator
 from .utils import password_reset_token
 from django.urls import reverse, reverse_lazy
@@ -171,10 +173,11 @@ class PasswordForgetView(FormView):
         return super().form_valid(form)
 ####################################################################################
 
-class PasswordResetView(FormView):
+class PasswordResetView(SuccessMessageMixin, FormView):
     template_name="passwordreset.html"
     form_class = PasswordResetForm
     success_url="/login/"
+    success_message = "your password is changed."
 
 
     def dispatch(self, request, *args, **kwargs):
