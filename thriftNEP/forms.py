@@ -1,4 +1,7 @@
+from dataclasses import field
 import email
+from tkinter import Widget
+from turtle import title
 from django import forms
 from .models import Product, Seller
 from django.contrib.auth.models import User
@@ -17,10 +20,16 @@ class SellerRegistrationForm(forms.ModelForm):
         if User.objects.filter(username=uname).exists():
             raise forms.ValidationError("Seller with this Username already exist!!  Please use other Username")
         return uname
+
+
+        
 #########################################################################################
 class SellerLoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput())
     password = forms.CharField(widget=forms.PasswordInput())
+
+
+
 
 ##############################################################################C
 class PasswordForgetForm(forms.Form):
@@ -107,3 +116,6 @@ class SellerProductCreateForm(forms.ModelForm):
                 "placeholder": "Enterthe product Title"
             }),
         }
+
+
+

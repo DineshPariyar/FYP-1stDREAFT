@@ -3,9 +3,17 @@
 {%block title%}help{%endblock%}
 
 {% block content%}
-    	<hr class="soften">
+    <hr class="soften">
 	<div class="well well-small">
+		{% if messages %}
+	<ul class="messages" style="text-align: center;">
+		{% for message in messages %}
+		<li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="list-style: none; color:rgb(164, 53, 205); font-weight:bolder">{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
 	<h1>Visit us</h1>
+	
 	<hr class="soften"/>	
 	<div class="row-fluid">
 		<div class="span8 relative">
@@ -29,29 +37,21 @@
 		
 		<div class="span4">
 		<h4>Email Us</h4>
-		<form class="form-horizontal">
+		<form class="form-horizontal" action="{% url 'thriftNEP:Feedback' %}"" method="POST">
+			{% csrf_token %}
         <fieldset>
-          <div class="control-group">
-           
-              <input type="text" placeholder="name" class="input-xlarge"/>
-           
-          </div>
+			
 		   <div class="control-group">
            
-              <input type="text" placeholder="email" class="input-xlarge"/>
-           
-          </div>
-		   <div class="control-group">
-           
-              <input type="text" placeholder="subject" class="input-xlarge"/>
+              <input type="text" placeholder="subject" class="input-xlarge" name="subject" required/>
           
           </div>
           <div class="control-group">
-              <textarea rows="3" id="textarea" class="input-xlarge"></textarea>
+              <textarea rows="3" id="textarea" class="input-xlarge" name="des" required></textarea>
            
           </div>
 
-            <button class="shopBtn" type="submit">Send email</button>
+            <button class="shopBtn" type="submit" value="send">send</button>
 
         </fieldset>
       </form>

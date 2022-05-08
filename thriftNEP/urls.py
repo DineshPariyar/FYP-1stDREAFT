@@ -8,6 +8,8 @@ urlpatterns=[
     path("product/<slug:slug>", ProductDetailView.as_view(), name="productdetail"),
     path("all-products/", AllProductsView.as_view(), name="allproducts"),
     path("help/",HelpView.as_view(), name="help"),
+    path("feedback/",feedback,name='Feedback'),
+
 
     path("register/",SellerRegistrationView, name="sellerregistration"),
     path("login/",SellerLoginView.as_view(), name="sellerlogin"),

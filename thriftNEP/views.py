@@ -337,3 +337,21 @@ def search(request):
     context['category'] = Category.objects.all()
 
     return response
+
+
+def feedback(request):
+    if request.method== "POST":
+        username=request.user
+        try:
+            subject=request.POST["subject"]
+            des=request.POST["des"]
+            # print("afhfdgahdjkak")
+            fdbck_rcv=Feedback(user=username, subject=subject, des=des)
+            fdbck_rcv.save()
+            messages.success(request,"Your thought have been saved !!! we appreciate your thhought.")
+        except:
+            messages.success(request,"You must be member brfore you send your feedback") 
+        print("working till here")
+        return redirect('/help/')
+    else:
+        return render(request,"help.html")
