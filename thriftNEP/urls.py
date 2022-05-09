@@ -6,7 +6,7 @@ app_name = "thriftNEP"
 urlpatterns=[
     path("",HomeView.as_view(), name="home"),
     path("product/<slug:slug>", ProductDetailView.as_view(), name="productdetail"),
-    path("all-products/", AllProductsView.as_view(), name="allproducts"),
+    # path("all-products/", AllProductsView.as_view(), name="allproducts"),
     path("help/",HelpView.as_view(), name="help"),
     path("feedback/",feedback,name='Feedback'),
 

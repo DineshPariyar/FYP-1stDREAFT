@@ -49,15 +49,15 @@ def filter_page(request,query):# we use this for the listing of the category lis
 
 
 
-class AllProductsView(TemplateView): # in this section the function is writeen to show al the products in the home page.
-    template_name="allproducts.html"
+# class AllProductsView(TemplateView): # in this section the function is writeen to show al the products in the home page.
+#     template_name="allproducts.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['allcategories']=Category.objects.all()
-        context['category'] = Category.objects.all()
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['allcategories']=Category.objects.all()
+#         context['category'] = Category.objects.all()
 
-        return context
+#         return context
 
 class ProductDetailView(TemplateView):
     template_name="productdetail.html"
@@ -209,8 +209,7 @@ class SellerMixin(object):
             self.seller = request.user.seller
             #if self.seller.is_active is False:
                 #return redirect("thriftNEP:sellerlogin")
-        except Exception as e:
-            print(e)
+        except Exception :
             return redirect("thriftNEP:sellerlogin")
         # context['category'] = Category.objects.all()
         return super().dispatch(request, *args, **kwargs)
